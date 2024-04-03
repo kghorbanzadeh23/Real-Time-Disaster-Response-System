@@ -1,0 +1,34 @@
+{
+    "java.debug.settings.onBuildFailureProceed": true,
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "companydb",
+            "username": "root",
+            "password": "Ghorbanzadeh@311",
+            "connectionTimeout": 1000
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "ensf380project",
+            "database": "projectdb",
+            "username": "root",
+            "password": "Ghorbanzadeh@311",
+            "connectionTimeout": 1000
+        }
+    ]
+}
