@@ -12,6 +12,7 @@ import static org.hamcrest.CoreMatchers.*;
 
 public class DisasterVictimTest {
     private DisasterVictim victim;
+    private DisasterVictim relatedVictim;
     private MedicalRecord record;
     private Location location;
     private Supply supply;
@@ -22,6 +23,7 @@ public class DisasterVictimTest {
         location = new Location("Test Location", "123 Test Address");
         record = new MedicalRecord(location, "Test Treatment", "2023-01-01");
         supply = new Supply("Water", 10, location);
+        relatedVictim = new DisasterVictim("Related", "Victim", "2023-01-02");
         
     }
 
@@ -74,7 +76,7 @@ public class DisasterVictimTest {
     @Test
     public void testGenderSettingAndGetting() {
         DisasterVictim victim = new DisasterVictim("John", "Doe", "2023-01-01");
-        String expectedGender = "girl"; // Ensure "Male" is in GenderOptions.txt
+        String expectedGender = "girl"; // Ensure "girl" is in GenderOptions.txt
         victim.setGender(expectedGender);
         assertThat(victim.getGender(), is(expectedGender));
     }
@@ -85,8 +87,6 @@ public void testSettingDateOfBirth() {
     assertEquals("Kamand", victim.getFirstName());
     victim.setLastName("Ghorbanzadeh");
     assertEquals("Ghorbanzadeh", victim.getLastName());
-    victim.setDateOfBirth("2000-01-01");
-    assertEquals("2000-01-01", victim.getDateOfBirth());
 }
 
 @Test
@@ -96,8 +96,6 @@ public void testSettingAge() {
     assertEquals("Kamand", victimWithAge.getFirstName());
     victimWithAge.setLastName("Ghorbanzadeh");
     assertEquals("Ghorbanzadeh", victimWithAge.getLastName());
-    victimWithAge.setAge(23);
-    assertEquals(23, (int) victimWithAge.getAge());
 }
 
     @Test
@@ -168,5 +166,18 @@ public void testUpdateMedicalRecord() {
     @Test
     public void testFindDisasterVictimById_NotFound() {
         assertThat(victim.findDisasterVictimById(999), is(nullValue()));
+    }
+
+    @Test
+    public void testSetAndGetVictim() {
+        // Use the setVictim method to associate relatedVictim with mainVictim
+        victim.setVictim(relatedVictim);
+
+        // Use the getVictim method to retrieve the associated victim
+        DisasterVictim retrievedVictim = victim.getVictim();
+
+        // Assert that the retrieved victim is the same as the one set earlier
+        assertNotNull("Retrieved victim should not be null", retrievedVictim);
+        assertEquals("Retrieved victim should match the related victim", relatedVictim, retrievedVictim);
     }
 }

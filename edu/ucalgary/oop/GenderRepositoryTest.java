@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 public class GenderRepositoryTest {
     private GenderRepository repository;
-    private String validFilePath = "../GenderOptions.txt"; // Update with actual path
+    private String validFilePath = "edu/ucalgary/oop/GenderOptions.txt"; // Update with actual path
     private String invalidFilePath = "nonexistent/path.txt";
 
     @Before

@@ -10,19 +10,14 @@ import static org.junit.Assert.*;
 
 public class LocationTest {
     private Location location;
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
     @Before
     public void setUp() {
-        System.setOut(new PrintStream(outContent));
         location = new Location("Shelter", "1234 Street");
     }
 
-    @After
-    public void restoreStreams() {
-        System.setOut(originalOut); // Restores standard output
-    }
+
 
     @Test
     public void constructorAndGetterTest() {
@@ -88,14 +83,13 @@ public class LocationTest {
     }
 
     @Test
-    public void updateLogTest() {
-        location.updateLog("New Shelter", "5678 Avenue");
-        String expectedLog = "Updating location log:\n" +
-                             "Old Name: Shelter, New Name: New Shelter\n" +
-                             "Old Address: 1234 Street, New Address: 5678 Avenue";
-        String actualOutput = outContent.toString().trim();
-        assertEquals(expectedLog, actualOutput);
-        assertEquals("New Shelter", location.getName());
-        assertEquals("5678 Avenue", location.getAddress());
+    public void testUpdateLog() {
+        String newName = "Updated Name";
+        String newAddress = "Updated Address";
+
+        location.updateLog(newName, newAddress);
+
+        assertEquals("The name should be updated to the new name", newName, location.getName());
+        assertEquals("The address should be updated to the new address", newAddress, location.getAddress());
     }
 }

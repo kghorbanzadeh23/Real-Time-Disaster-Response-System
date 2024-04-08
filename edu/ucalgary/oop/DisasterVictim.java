@@ -17,7 +17,7 @@ public class DisasterVictim implements DisasterVictimsEntryInterface{
     private Set<DietaryPlan> dietaryRestrictions = new HashSet<>(); // Use a Set to avoid duplicates
     private String firstName;
     private String lastName;
-    private String dateOfBirth;
+    private DisasterVictim victim;
     private int assignedSocialID;
     private ArrayList<FamilyRelation> familyConnections = new ArrayList<>();
     private ArrayList<MedicalRecord> medicalRecords = new ArrayList<>();
@@ -25,13 +25,12 @@ public class DisasterVictim implements DisasterVictimsEntryInterface{
     private String entryData;
     private String gender;
     private String comments;
-    private Integer age;
 
     public DisasterVictim(String firstName, String lastName, String entryData) {
         this.firstName = firstName;
         this.lastName = lastName;
         if (validGenders == null) {
-            validGenders = genderRepository.readFile("../GenderOptions.txt");
+            validGenders = genderRepository.readFile("edu/ucalgary/oop/GenderOptions.txt");
         }
         if (!isValidDateFormat(entryData)) {
             throw new IllegalArgumentException("Invalid date format for entry date. Expected format: YYYY-MM-DD");
@@ -70,19 +69,6 @@ public class DisasterVictim implements DisasterVictimsEntryInterface{
         return date;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        if (this.age != null) {
-            throw new IllegalArgumentException("Cannot set both birthdate and approximate age.");
-        }
-        this.dateOfBirth = validateDateFormat(dateOfBirth);
-    }
-
-    public void setAge(Integer age) {
-        if (this.dateOfBirth != null && !this.dateOfBirth.isEmpty()) {
-            throw new IllegalArgumentException("Cannot set both approximate age and birthdate.");
-        }
-        this.age = age;
-    }
     
     public void setGender(String gender) {
         if (validGenders.contains(gender)) {
@@ -125,18 +111,10 @@ public class DisasterVictim implements DisasterVictimsEntryInterface{
         this.lastName = lastName;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
     public int getAssignedSocialID() {
         return assignedSocialID;
     }
 
-    public Integer getAge(){
-        return age;
-    }
-    
     public ArrayList<FamilyRelation> getFamilyConnections() {
         return familyConnections;
     }
@@ -293,6 +271,14 @@ public class DisasterVictim implements DisasterVictimsEntryInterface{
             records.addAll(victim.getMedicalRecords());
         }
         return records;
+    }
+
+    public DisasterVictim getVictim() {
+        return this.victim;
+    }
+
+    public void setVictim(DisasterVictim victim) {
+        this.victim = victim;
     }
 
 }
